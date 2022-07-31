@@ -1,4 +1,5 @@
 import functionalities as f
+import studente as s
      
 #dizionario per definire i comandi disponibili
 switcher = {
