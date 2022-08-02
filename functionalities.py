@@ -2,13 +2,15 @@ import studente as s
 
 #funzioni dei vari comandi disponibili
 def studenti():
-    s.studentsList()
+    s.studentList()
     lolaHelp()
 
 def idonei():
+    s.suitableStudentList()
     lolaHelp()
 
 def non_idonei():
+    s.notSuitableStudentList()
     lolaHelp()
 
 def cerca_studente():
@@ -67,7 +69,7 @@ def mainMenu():
           "1  -> Mostra la lista di tutti gli studenti (idonei e non)       \n"
           "2  -> Mostra la lista di tutti gli studenti idonei               \n"
           "3  -> Mostra la lista di tutti gli studenti non idonei           \n"
-          "4  -> Mostra le informazione dello studente selezionato          \n"
+          "4  -> Mostra le informazioni dello studente selezionato          \n"
           "5  -> Aggiunge un nuovo studente                                 \n"
           "6  -> Modifica uno studente esistente                            \n"
           
