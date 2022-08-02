@@ -29,9 +29,9 @@ dipartimento('Psicologia', 'Via Baracca', 'Scioscia').
 dipartimento('Matematica', 'Via Rorri', 'Valenzano').
 
 %---LISTA DESTINAZIONI---
-destinazione(133, 'Informatica', 2).
-destinazione(122, 'Lingue', 3).
-destinazione(455, 'Arte', 2).
-destinazione(332, 'Psicologia', 1).
-destinazione(556, 'Matematica', 1).
-destinazione(006, 'Medicina', 4).
+destinazione('XKS', 'Informatica', 2).
+destinazione('POW', 'Lingue', 3).
+destinazione('LSO', 'Arte', 2).
+destinazione('WOH', 'Psicologia', 1).
+destinazione('ADS', 'Matematica', 1).
+destinazione('MXK', 'Medicina', 4).
