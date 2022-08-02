@@ -1,7 +1,6 @@
 #["7","Mostra la lista delle destinazioni"],
 #["8","Aggiunge una nuova destinazione"],
 from pyswip import Prolog
-import pandas as pd
 from tabulate import tabulate
 
 prolog = Prolog()
@@ -20,14 +19,21 @@ def addDestination():
     #controllo numero caratteri della matricola inserita
     while(not 1 <= len(str(destinationID)) <= 3):
        
-        destinationID = input("Inserisci codice destinazione:\n")
+        destinationID = input("Inserisci codice destinazione:\n").lower()
+            
         queryCheck = "destinazione("+str(destinationID)+",FACOLTA,DISPONIBILITA)"
-        
+       
+        #messaggio errore nel caso la lunghezza dell'ID non rovesse rientrare nel range (1-3)   
         if(not 1 <= len(str(destinationID)) <= 3):
             print("Valore inserito non valido. Max 3 caratteri!\n")
+         
+        #messaggio errore nel caso sono presenti dei numeri nell'ID inserito   
+        if(any(chr.isdigit() for chr in str(destinationID))): 
+            destinationID=""
+            print("Valore inserito non valido. Inserire solo lettere!\n")
     
     #controllo presenza id nel database
-    if(not outputResult(queryCheck, False)):
+    if(not outputResult(queryCheck, True)):
 
         faculty = "" 
         
