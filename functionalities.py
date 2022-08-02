@@ -14,12 +14,15 @@ def non_idonei():
     lolaHelp()
 
 def cerca_studente():
+    s.findStudent()
     lolaHelp()
 
 def aggiungi_studente():
+    s.addStudent()
     lolaHelp()
 
 def modifica_studente():
+    s.modifyStudent()
     lolaHelp()
 
 def destinazioni():

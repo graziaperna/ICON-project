@@ -1,3 +1,4 @@
+:- dynamic(studente/3).
 %---REGOLE---
 
 
