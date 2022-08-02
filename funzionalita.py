@@ -1,4 +1,5 @@
 import studente as s
+import destinazione as d
 import pandas as pd
 from tabulate import tabulate
 
@@ -28,9 +29,11 @@ def modifica_studente():
     lolaHelp()
 
 def destinazioni():
+    d.destinationList()
     lolaHelp()
 
 def aggiungi_destinazione():
+    d.addDestination()
     lolaHelp()
 
 def dipartimenti():
