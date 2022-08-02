@@ -1,4 +1,6 @@
 import studente as s
+import pandas as pd
+from tabulate import tabulate
 
 #funzioni dei vari comandi disponibili
 def studenti():
@@ -65,30 +67,32 @@ def firstMessage():
     
 #menu per visualizzare i comandi disponibili
 def mainMenu():
-    print("Questa e' la lista dei comandi disponibili, "
-          "digita il numero del comando a cui sei interessato.              \n"
-          
-          "\n\t\t\t\t\tSTUDENTI\t\t\t\t\t                                   \n"
-          "1  -> Mostra la lista di tutti gli studenti (idonei e non)       \n"
-          "2  -> Mostra la lista di tutti gli studenti idonei               \n"
-          "3  -> Mostra la lista di tutti gli studenti non idonei           \n"
-          "4  -> Mostra le informazioni dello studente selezionato          \n"
-          "5  -> Aggiunge un nuovo studente                                 \n"
-          "6  -> Modifica uno studente esistente                            \n"
-          
-          "\n\t\t\t\t\tDESTINAZIONI\t\t\t\t\t                               \n"
-          "7  -> Mostra la lista delle destinazioni                         \n"
-          "8  -> Aggiunge una nuova destinazione                            \n"
-          
-          "\n\t\t\t\t\tDIPARTIMENTI\t\t\t\t\t                               \n"
-          "9  -> Mostra i dipartimenti aderenti al programma                \n"
-          "10 -> Aggiunge un nuovo dipartimento aderente                    \n"
-          "11 -> Rimuove un dipartimento aderente                           \n"
-          
-          "\n\t\t\t\t\tFUNZIONALITA'\t\t\t\t\t                              \n"
-          "12 -> Mostra la probabilita' di idoneita' al programma           \n"
-          "13 -> Mostra la borsa spettante allo studente                    \n"
-          "14 -> Calcola il margine di precisione del classificatore        \n"
-          
-          "\nDigitare 0 per terminare...                                    \n")
+    table = [["COMANDO","DESCRIZIONE COMANDO"],
+            ["",""],
+            ["    ","STUDENTI"],
+            ["1","Mostra la lista di tutti gli studenti (idonei e non)"],
+            ["2","Mostra la lista di tutti gli studenti idonei"],
+            ["3","Mostra la lista di tutti gli studenti non idonei"],
+            ["4","Mostra le informazioni dello studente selezionato"],
+            ["5","Aggiunge un nuovo studente"],
+            ["6","Modifica uno studente esistente"],
+            ["",""],
+            ["    ","DESTINAZIONI"],
+            ["7","Mostra la lista delle destinazioni"],
+            ["8","Aggiunge una nuova destinazione"],
+            ["",""],
+            ["    ","DIPARTIMENTI"],
+            ["9","Mostra i dipartimenti aderenti al programma"],
+            ["10","Aggiunge un nuovo dipartimento aderente"],
+            ["11","Rimuove un dipartimento aderente"],
+            ["",""],
+            ["    ","FUNZIONALITA'"],
+            ["12","Mostra la probabilita' di idoneita' al programma"],
+            ["13","Mostra la borsa spettante allo studente"],
+            ["14","Calcola il margine di precisione del classificatore"],
+            ["0","Terminare l'esecuzione del programma"]]
+    
+    print(tabulate(table, tablefmt="pretty", numalign="center"))
+    
+    print("\nDigita il numero del comando a cui sei interessato.              \n")
     
