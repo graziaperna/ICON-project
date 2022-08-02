@@ -1,5 +1,4 @@
 from pyswip import Prolog
-import pandas as pd
 from tabulate import tabulate
 
 prolog = Prolog()
@@ -58,9 +57,28 @@ def addStudent():
                 
                 print("Valore inserito non valido, inserire \"si\" o \"no\".\n")
                 
-        studentDestination = input("Inserisci l'ID della destinazione: ")
+    
+        #inserimento della destinazione solo in caso di idoneità
+        if(studentSuitability == 'si'): 
+            
+            destinationFound = False
+            #controllo presenza destinazione nel database
+            destinationFound = False
+            
+            while(not destinationFound):
+                
+                studentDestination = input("Inserisci l'ID della destinazione: ")
+                checkDestination = "destinazione("+str(studentDestination)+",FACOLTA,DISPONIBILITA)"
+                destinationFound = outputResult(checkDestination, False)
+                if (not destinationFound):
+                    print("Valore inserito non valido, inserire una destinazione presente nel database.\n") 
+                   
+            queryCheck = "studente("+str(studentID)+","+studentSuitability+","+str(studentDestination)+")"
         
-        queryCheck = "studente("+str(studentID)+","+studentSuitability+","+studentDestination+")"
+        else:
+            
+            queryCheck = "studente("+str(studentID)+","+studentSuitability+", null)"
+            
         prolog.assertz(queryCheck)
         
         print("Studente inserito nel database.")
@@ -91,9 +109,25 @@ def modifyStudent():
                 
                 print("Valore inserito non valido, inserire \"si\" o \"no\".\n")
                 
-        studentDestination = input("Inserisci l'ID della destinazione: ")
+        #inserimento della destinazione solo in caso di idoneità
+        if(studentSuitability == 'si'): 
+            destinationFound = False
+            #controllo presenza destinazione nel database
+            while(not destinationFound):
                 
-        queryCheck = "studente("+str(studentID)+","+studentSuitability+","+studentDestination+")"
+                studentDestination = input("Inserisci l'ID della destinazione: ")
+                checkDestination = "destinazione("+str(studentDestination)+",FACOLTA,DISPONIBILITA)"
+                destinationFound = outputResult(checkDestination, False)
+                
+                if (not destinationFound):
+                    print("Valore inserito non valido, inserire una destinazione presente nel database.\n") 
+                    
+            queryCheck = "studente("+str(studentID)+","+studentSuitability+","+str(studentDestination)+")"
+            
+        else:
+            
+            queryCheck = "studente("+str(studentID)+","+studentSuitability+", null)"
+                
         prolog.assertz(queryCheck)
         
         print("Studente modificato correttamente.")
