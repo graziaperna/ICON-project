@@ -1,15 +1,15 @@
 from pyswip import Prolog
 
 prolog = Prolog()
-prolog.consult("KBErasmusManager.pl")
+prolog.consult("KB.pl")
 
-#mostra la lista dei dipendenti, il loro numero e la lista delle posizioni non ricoperte
+#mostra la lista degli studenti
 def studentsList():
 
-    myTrueQuery = "prop(X,no,Y)"
+    myTrueQuery = "studente(X,Y,Z)"
     myList = list(prolog.query(myTrueQuery))
     print("\nLista studenti: ")
     for elem in myList:
-        queryProjects = "- "+elem["X"]+elem["Y"]+elem["Z"]
+        queryProjects = "- "+ str(elem["X"])+ " " + elem["Y"] + " "+ str(elem["Z"])
         print(queryProjects)
     
