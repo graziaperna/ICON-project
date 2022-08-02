@@ -1,5 +1,8 @@
+import studente as s
+
 #funzioni dei vari comandi disponibili
 def studenti():
+    s.studentsList()
     lolaHelp()
 
 def idonei():
