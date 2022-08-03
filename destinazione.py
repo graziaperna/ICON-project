@@ -100,11 +100,6 @@ def extractDestination(list, operation):
         else:
             return destinationID[7]
             
-        
-            
-        
-        
-        
 
 #restituisce risultati query    
 def outputResult(myTrueQuery, printable):
