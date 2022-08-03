@@ -1,6 +1,7 @@
 import studente as s
 import destinazione as d
 import dipartimento as dp
+import classificatore as c
 import pandas as pd
 from tabulate import tabulate
 
@@ -67,6 +68,7 @@ def probabilita_idoneita():
 
 def finanziamento():
     print("\n-------------------------------CLASSE BORSA DI STUDIO-------------------------------\n\n")
+    c.classifier()
     lolaHelp()
 
 def precisione_classificatore():
