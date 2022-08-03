@@ -21,17 +21,17 @@ studente(90078, si, 325).
 studente(91258, si, 332).
 
 %---LISTA DIPARTIMENTI---
-dipartimento('Lingue', 'Via Rossi', 'Falco').
-dipartimento('Informatica', 'Via Blu',  'Bianchi').
-dipartimento('Medicina', 'Via Gramsci', 'Dignazio').
-dipartimento('Arte', 'Via Ruvo', 'Comero').
-dipartimento('Psicologia', 'Via Baracca', 'Scioscia').
-dipartimento('Matematica', 'Via Rorri', 'Valenzano').
+dipartimento('lingue', 'via Rossi', 'falco').
+dipartimento('informatica', 'via Blu',  'bianchi').
+dipartimento('medicina', 'via Gramsci', 'dignazio').
+dipartimento('arte', 'via Ruvo', 'comero').
+dipartimento('psicologia', 'via Baracca', 'scioscia').
+dipartimento('matematica', 'via Rorri', 'valenzano').
 
 %---LISTA DESTINAZIONI---
-destinazione('XKS', 'Informatica', 2).
-destinazione('POW', 'Lingue', 3).
-destinazione('LSO', 'Arte', 2).
-destinazione('WOH', 'Psicologia', 1).
-destinazione('ADS', 'Matematica', 1).
-destinazione('MXK', 'Medicina', 4).
+destinazione('vbc', 'informatica', 2).
+destinazione('pow', 'lingue', 3).
+destinazione('lsk', 'arte', 2).
+destinazione('sdd', 'psicologia', 1).
+destinazione('qwe', 'matematica', 1).
+destinazione('azx', 'medicina', 4).

@@ -1,5 +1,6 @@
 import studente as s
 import destinazione as d
+import dipartimento as dp
 import pandas as pd
 from tabulate import tabulate
 
@@ -37,12 +38,16 @@ def aggiungi_destinazione():
     lolaHelp()
 
 def dipartimenti():
+    dp.departmentList()
     lolaHelp()
 
+
 def aggiungi_dipartimento():
+    dp.addDepartment()
     lolaHelp()
 
 def rimuovi_dipartimento():
+    dp.removeDepartment()
     lolaHelp()
 
 def probabilita_idoneita():

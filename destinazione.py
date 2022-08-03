@@ -20,6 +20,7 @@ def addDestination():
     while(not 1 <= len(str(destinationID)) <= 3):
        
         destinationID = input("Inserisci codice destinazione:\n").lower()
+        
             
         queryCheck = "destinazione("+str(destinationID)+",FACOLTA,DISPONIBILITA)"
        
@@ -31,15 +32,15 @@ def addDestination():
         if(any(chr.isdigit() for chr in str(destinationID))): 
             destinationID=""
             print("Valore inserito non valido. Inserire solo lettere!\n")
-    
+            
     #controllo presenza id nel database
-    if(not outputResult(queryCheck, True)):
+    if(not outputResult(queryCheck, False)):
 
         faculty = "" 
         
         faculty = input("Inserisci la facolta': ").lower()
             
-        availabilty = input("Inserisci la disponibilita': ")
+        availabilty = input("Inserisci la disponibilita': ").lower()
         
         queryCheck = "destinazione("+str(destinationID)+","+faculty+","+availabilty+")"
         prolog.assertz(queryCheck)
@@ -62,6 +63,4 @@ def outputResult(myTrueQuery, printable):
     else:
         if printable:
             print(tabulate(myList, headers='keys', tablefmt="pretty", numalign="center"))
-        return True
-    
-          
+        return True  
