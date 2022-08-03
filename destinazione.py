@@ -2,6 +2,8 @@
 #["8","Aggiunge una nuova destinazione"],
 from pyswip import Prolog
 from tabulate import tabulate
+import studente as s
+import re
 
 prolog = Prolog()
 prolog.consult("KB.pl") 
@@ -50,6 +52,25 @@ def addDestination():
     else:
         print("Destinazione gia' presente nel database.\n")
         
+#rimuove una destinazione in seguito alla rimozione di un dipartimento
+def removeDestination(departmentFaculty):
+    destinationID=""
+    queryCheck = "destinazione(ID,"+str(departmentFaculty)+",DISPONIBILITA)"
+    
+    #controllo presenza facolta' nel database
+    if(outputResult(queryCheck, False)):
+        
+        destination=list(prolog.query("destinazione(ID,"+str(departmentFaculty)+",_)"))
+       
+        outputResult(queryCheck, True)
+        
+        for elem in destination:
+            destinationID = re.split("\s", str(destination[0]))
+            destinationID = str(destination[0]).split("'")
+            s.removeStudentForDestination(destinationID[3])
+            prolog.retractall(queryCheck)
+
+        
 #restituisce risultati query    
 def outputResult(myTrueQuery, printable):
     
@@ -64,3 +85,6 @@ def outputResult(myTrueQuery, printable):
         if printable:
             print(tabulate(myList, headers='keys', tablefmt="pretty", numalign="center"))
         return True  
+    
+    
+    

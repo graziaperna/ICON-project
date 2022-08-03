@@ -135,8 +135,17 @@ def modifyStudent():
     else:
         print("Studente non presente nel database.\n")
         
+#rimuove uno studente in seguito alla rimozione di una destinazione
+def removeStudentForDestination(destinationID):
+    
+    queryCheck = "studente(ID,IDONEO,"+str(destinationID)+")"
+    student=list(prolog.query(queryCheck))
+    
+    for elem in student:
         
-
+        #controllo presenza facolta' nel database
+        if(outputResult(queryCheck, False)):
+            prolog.retractall(queryCheck)
 
 #restituisce risultati query    
 def outputResult(myTrueQuery, printable):
