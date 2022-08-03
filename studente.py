@@ -1,5 +1,7 @@
 from pyswip import Prolog
 from tabulate import tabulate
+import destinazione as d
+import os
 
 prolog = Prolog()
 prolog.consult("KB.pl") 
@@ -35,12 +37,12 @@ def addStudent():
     studentID = ""
     
     #controllo numero caratteri della matricola inserita
-    while(not 1 <= len(str(studentID)) <= 5):
+    while(not len(str(studentID)) == 5):
        
         studentID = input("Inserisci matricola nuovo studente:\n")
         queryCheck = "studente("+str(studentID)+",IDONEO,DESTINAZIONE)"
         
-        if(not 1 <= len(str(studentID)) <= 5):
+        if(not len(str(studentID)) == 5):
             print("Valore inserito non valido. Max 5 caratteri!\n")
     
     #controllo presenza id nel database
@@ -61,7 +63,6 @@ def addStudent():
         #inserimento della destinazione solo in caso di idoneità
         if(studentSuitability == 'si'): 
             
-            destinationFound = False
             #controllo presenza destinazione nel database
             destinationFound = False
             
@@ -70,11 +71,15 @@ def addStudent():
                 studentDestination = input("Inserisci l'ID della destinazione: ")
                 checkDestination = "destinazione("+str(studentDestination)+",FACOLTA,DISPONIBILITA)"
                 destinationFound = outputResult(checkDestination, False)
+                
                 if (not destinationFound):
                     print("Valore inserito non valido, inserire una destinazione presente nel database.\n") 
-                   
-            queryCheck = "studente("+str(studentID)+","+studentSuitability+","+str(studentDestination)+")"
-        
+                else:
+                    if(d.modifyAvailability(str(studentDestination), 0)):
+                        queryCheck = "studente("+str(studentID)+","+studentSuitability+","+str(studentDestination)+")"
+                    else:
+                        print("Disponibilita' posti non sufficente \n") 
+                                     
         else:
             
             queryCheck = "studente("+str(studentID)+","+studentSuitability+", null)"
@@ -96,6 +101,9 @@ def modifyStudent():
     #controllo presenza id nel database
     if(outputResult(queryCheck, False)):
         
+        lista=list(prolog.query(queryCheck))
+        oldDestination = d.extractDestination(lista, 2)
+           
         prolog.retractall(queryCheck)
         
         studentSuitability = ""
@@ -120,14 +128,21 @@ def modifyStudent():
                 destinationFound = outputResult(checkDestination, False)
                 
                 if (not destinationFound):
-                    print("Valore inserito non valido, inserire una destinazione presente nel database.\n") 
                     
-            queryCheck = "studente("+str(studentID)+","+studentSuitability+","+str(studentDestination)+")"
+                    print("Valore inserito non valido, inserire una destinazione presente nel database.\n") 
+                else:
+                    #diminuizione della disponibilità nuova destinazione
+                    if(d.modifyAvailability(str(studentDestination),0)):
+                        #aumento disponibilità vecchia destinazione
+                        queryCheck = "studente("+str(studentID)+","+studentSuitability+","+str(studentDestination)+")"
+                    else:
+                        print("Disponibilita' posti non sufficente \n")         
             
         else:
             
             queryCheck = "studente("+str(studentID)+","+studentSuitability+", null)"
-                
+         
+        d.modifyAvailability(str(oldDestination), 1)       
         prolog.assertz(queryCheck)
         
         print("Studente modificato correttamente.")

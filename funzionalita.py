@@ -6,57 +6,71 @@ from tabulate import tabulate
 
 #funzioni dei vari comandi disponibili
 def studenti():
+    print("\n-------------------------------LISTA STUDENTI-------------------------------\n\n")
     s.studentList()
     lolaHelp()
 
 def idonei():
+    print("\n-------------------------------LISTA STUDENTI IDONEI-------------------------------\n\n")
     s.suitableStudentList()
     lolaHelp()
 
 def non_idonei():
+    print("\n-------------------------------LISTA STUDENTI NON IDONEI-------------------------------\n\n")
     s.notSuitableStudentList()
     lolaHelp()
 
 def cerca_studente():
+    print("\n-------------------------------RICERCA STUDENTE-------------------------------\n\n")
     s.findStudent()
     lolaHelp()
 
 def aggiungi_studente():
+    print("\n-------------------------------AGGIUNTA STUDENTI-------------------------------\n\n")
     s.addStudent()
     lolaHelp()
 
 def modifica_studente():
+    print("\n-------------------------------MODIFICA STUDENTI-------------------------------\n\n")
     s.modifyStudent()
     lolaHelp()
 
 def destinazioni():
+    print("\n-------------------------------LISTA DESTINAZIONI-------------------------------\n\n")
     d.destinationList()
     lolaHelp()
 
 def aggiungi_destinazione():
+    print("\n-------------------------------AGGIUNTA DESTINAZIONE-------------------------------\n\n")
     d.addDestination()
     lolaHelp()
 
 def dipartimenti():
+    print("\n-------------------------------LISTA DIPARTIMENTI-------------------------------\n\n")
     dp.departmentList()
     lolaHelp()
 
 
 def aggiungi_dipartimento():
+    print("\n-------------------------------AGGIUNTA DIPARTIMENTO-------------------------------\n\n")
     dp.addDepartment()
     lolaHelp()
 
 def rimuovi_dipartimento():
+    print("\n-------------------------------RIMOZIONE DIPARTIMENTO-------------------------------\n\n")
     dp.removeDepartment()
     lolaHelp()
 
 def probabilita_idoneita():
+    print("\n-------------------------------PROBABILITA' IDONEITA'-------------------------------\n\n")
     lolaHelp()
 
 def finanziamento():
+    print("\n-------------------------------CLASSE BORSA DI STUDIO-------------------------------\n\n")
     lolaHelp()
 
 def precisione_classificatore():
+    print("\n-------------------------------PRECISIONE CLASSIFICATORE-------------------------------\n\n")
     lolaHelp()
 
 def esci():
