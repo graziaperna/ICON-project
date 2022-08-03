@@ -1,5 +1,6 @@
 from pyswip import Prolog
 from tabulate import tabulate
+import destinazione as d
 
 prolog = Prolog()
 prolog.consult("KB.pl") 
@@ -39,7 +40,7 @@ def addDepartment():
     else:
         print("Dipartimento gia' presente nel database.\n")
         
-#modifica un dipartimento esistente
+#rimuove un dipartimento esistente
 def removeDepartment():
     
     departmentFaculty = input("Inserisci la facolta' da eliminare:\n").lower()
@@ -49,6 +50,8 @@ def removeDepartment():
     if(outputResult(queryCheck, False)):
         prolog.retractall(queryCheck)
         print("Il dipartimento e' stato eliminato correttamente.\n")
+        
+        d.removeDestination(departmentFaculty)
     else:
         print("Dipartimento non presente nel database.\n")
         
