@@ -65,12 +65,47 @@ def removeDestination(departmentFaculty):
         outputResult(queryCheck, True)
         
         for elem in destination:
-            destinationID = re.split("\s", str(destination[0]))
             destinationID = str(destination[0]).split("'")
             s.removeStudentForDestination(destinationID[3])
             prolog.retractall(queryCheck)
 
+def modifyAvailability(ID,operation):
+    
+    queryCheck = "destinazione("+str(ID)+",FACOLTA,DISPONIBILITA)"
+    destination=list(prolog.query(queryCheck))
+    #salvataggio occorrenze di FACOLTA' e DISPONIBILITA'
+    for elem in destination:
+        infoDestination = extractDestination(destination, operation)
+
+        if(infoDestination[1] != 0):
+            prolog.retractall(queryCheck)
+            prolog.assertz("destinazione("+str(ID)+","+str(infoDestination[0])+","+str(infoDestination[1])+")")
+            return True
+        else:
+            return False
+    
+def extractDestination(list, operation):
+        listInfo=[]
+        destinationID = str(list[0]).split("'")
+        listInfo.append(destinationID[3])
         
+        if(operation == 0):
+            listInfo.append(int(destinationID[6][destinationID[6].find(' ')+1:destinationID[6].find('}')]) - 1)
+            return listInfo
+
+        elif(operation == 1):
+            listInfo.append(int(destinationID[6][destinationID[6].find(' ')+1:destinationID[6].find('}')]) + 1)
+            return listInfo
+        
+        else:
+            return destinationID[7]
+            
+        
+            
+        
+        
+        
+
 #restituisce risultati query    
 def outputResult(myTrueQuery, printable):
     
