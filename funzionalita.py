@@ -73,6 +73,7 @@ def finanziamento():
 
 def precisione_classificatore():
     print("\n-------------------------------PRECISIONE CLASSIFICATORE-------------------------------\n\n")
+    c.accuratezza()
     lolaHelp()
 
 def esci():
