@@ -1,38 +1,46 @@
-from statistics import mean
+from sklearn.model_selection import train_test_split
+from numpy import mean
 from tabulate import tabulate
 from pandas import read_csv
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.model_selection import LeaveOneOut
-from sklearn.model_selection import cross_val_score
-import codecs
+from sklearn import svm
+
 
 competenze = read_csv('borsadistudio.csv')
 X = competenze.drop(columns=['borsadistudio'])
-y = competenze['borsadistudio']
 
-modello = DecisionTreeClassifier()
-modello.fit(X.values, y.values)
-loo = LeaveOneOut()
-#result = cross_val_score(modello, X, y, scoring='accuracy', cv = loo)
+y = competenze['borsadistudio']
+# Divisione dei dataset in training set e test set
+# il 75% del dataset costituisce il training set, la restante parte costituisce il test set
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.35, random_state=0)
+modello = svm.SVC(kernel='linear', C=1, random_state=0)
+modello.fit(X_train.values, y_train.values)
+result = modello.score(X_train.values, y_train.values)
 
 def classifier():
     mean = 0
     isee = 0
     regular = -1
     #result = True
-    while (mean < 1 or mean > 5):
+    while (mean < 1 or mean > 11):
         
         table = [["MEDIA","FASCIA"],
-                ["18-20,5","1"],
-                ["20,6-23","2"],
-                ["23,1-26","3"],
-                ["26,1-28","4"],
-                ["28,1-30","5"]]
+                ["18-19","1"],
+                ["19.1-20","2"],
+                ["20,1-21","3"],
+                ["21,1-22","4"],
+                ["22,1-23","5"],
+                ["23,1-24","6"],
+                ["24,1-25","7"],
+                ["25,1-26","8"],
+                ["26,1-27","9"],
+                ["27,1-28","10"],
+                ["28,1-29","11"],
+                ["29,1-30","12"]]
         print(tabulate(table, tablefmt="pretty", numalign="center"))
         
         mean = int(input("Inserisci la tua media ponderata dei voti, seguendo la tabella sopra riportata: \n"))
        
-        if(mean < 1 or mean > 5):
+        if(mean < 1 or mean > 11):
             print("Media inserita non valida. Inserire un valore compreso tra 1 e 5")
             
     while (isee < 1 or isee > 3):
@@ -62,8 +70,7 @@ def classifier():
         print("La borsa di studio che potrai attenere e': " + elem + "\n")
 
 
-#def accuratezza():
-    #print("L'accuratezza del sistema e': %.3f" % mean(result))
-    #print("{}".format(result))
+def accuratezza():
+    print("L'accuratezza del sistema e': %0.3f" % mean(result))
 
 
