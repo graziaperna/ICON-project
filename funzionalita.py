@@ -2,6 +2,7 @@ import studente as s
 import destinazione as d
 import dipartimento as dp
 import classificatore as c
+import probabilita as p
 import pandas as pd
 from tabulate import tabulate
 
@@ -64,6 +65,7 @@ def rimuovi_dipartimento():
 
 def probabilita_idoneita():
     print("\n-------------------------------PROBABILITA' IDONEITA'-------------------------------\n\n")
+    p.prediction()
     lolaHelp()
 
 def finanziamento():
