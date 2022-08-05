@@ -21,12 +21,12 @@ studente(90078, si, 'sdd').
 studente(91258, si, 'azx').
 
 %---LISTA DIPARTIMENTI---
-dipartimento('lingue', 'via Rossi', 'falco').
-dipartimento('informatica', 'via Blu',  'bianchi').
-dipartimento('medicina', 'via Gramsci', 'dignazio').
-dipartimento('arte', 'via Ruvo', 'comero').
-dipartimento('psicologia', 'via Baracca', 'scioscia').
-dipartimento('matematica', 'via Rorri', 'valenzano').
+dipartimento('lingue', 'via_rossi', 'falco').
+dipartimento('informatica', 'via_blu',  'bianchi').
+dipartimento('medicina', 'via_gramsci', 'dignazio').
+dipartimento('arte', 'via_ruvo', 'comero').
+dipartimento('psicologia', 'via_baracca', 'scioscia').
+dipartimento('matematica', 'via_rorri', 'valenzano').
 
 %---LISTA DESTINAZIONI---
 destinazione('vbc', 'informatica', 2).

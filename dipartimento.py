@@ -1,6 +1,7 @@
 from pyswip import Prolog
 from tabulate import tabulate
 import destinazione as d
+import funzionalita as f
 
 prolog = Prolog()
 prolog.consult("KB.pl") 
@@ -9,27 +10,40 @@ prolog.consult("KB.pl")
 def departmentList():
     
     myTrueQuery= "dipartimento(FACOLTA,INDIRIZZO,COORDINATORE)"
-    outputResult(myTrueQuery, True)
+    f.outputResult(myTrueQuery, True)
 
 #utile per aggiungere un nuovo dipartimento
 def addDepartment():
+     
+    departmentFaculty = ""
+    
+  #messaggio errore nel caso sono presenti dei numeri nella facolta inserita  
+    while(departmentFaculty == ""):
        
-    departmentFaculty = input("Inserisci la facolta':\n").lower()
-    
+        departmentFaculty = input("Inserisci la facolta':\n").lower()
+        queryCheck = "dipartimento("+str(departmentFaculty)+",INDIRIZZO,COORDINATORE)"
             
-    queryCheck = "dipartimento("+str(departmentFaculty)+",INDIRIZZO,COORDINATORE)"
-         
-    #messaggio errore nel caso sono presenti dei numeri nella facolta inserita  
-    if(any(chr.isdigit() for chr in str(departmentFaculty))): 
-        departmentFaculty=""
-        print("Valore inserito non valido. Inserire solo lettere!\n")
+        if(any(chr.isdigit() for chr in str(departmentFaculty))): 
+            departmentFaculty=""
+            print("Valore inserito non valido. Inserire solo lettere!\n")
     
+   
     #controllo presenza facolta' nel database
-    if(not outputResult(queryCheck, False)):
+    if(not f.outputResult(queryCheck, False)):
         
-        address = input("Inserisci l'indirizzo della facolta': ").lower()
-            
+        address = input("Inserisci l'indirizzo della facolta': ")
+        
+        address = f.convertSpace(address)
+        
         coordinator = input("Inserisci il coordinatore: ").lower()
+        
+        for letter in address:
+            if(letter != " "):
+                if(not letter.isdigit()): 
+                    address = address.replace(letter,letter.lower())
+            else:
+                address = address.replace(letter,"_")
+
         
         queryCheck = "dipartimento("+str(departmentFaculty)+","+str(address)+","+str(coordinator)+")"
 
@@ -47,7 +61,7 @@ def removeDepartment():
     queryCheck = "dipartimento("+str(departmentFaculty)+",INDIRIZZO,COORDINATORE)"
     
     #controllo presenza facolta' nel database
-    if(outputResult(queryCheck, False)):
+    if(f.outputResult(queryCheck, False)):
         prolog.retractall(queryCheck)
         print("Il dipartimento e' stato eliminato correttamente.\n")
         
@@ -55,21 +69,3 @@ def removeDepartment():
     else:
         print("Dipartimento non presente nel database.\n")
         
-        
-        
-#restituisce risultati query    
-def outputResult(myTrueQuery, printable):
-    
-    myList = list(prolog.query(myTrueQuery))
-    
-    if not myList:
-        if printable:
-            print("Nessun risultato trovato.\n") 
-        return False
-    
-    else:
-        if printable:
-            print(tabulate(myList, headers='keys', tablefmt="pretty", numalign="center"))
-        return True
-    
-          
