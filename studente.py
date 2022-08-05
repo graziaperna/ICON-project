@@ -1,7 +1,6 @@
 from pyswip import Prolog
-from tabulate import tabulate
 import destinazione as d
-import os
+import funzionalita as f
 
 prolog = Prolog()
 prolog.consult("KB.pl") 
@@ -10,43 +9,44 @@ prolog.consult("KB.pl")
 def studentList():
     
     myTrueQuery= "studente(ID,IDONEO,DESTINAZIONE)"
-    outputResult(myTrueQuery, True)
+    f.outputResult(myTrueQuery, True)
 
 #mostra la lista degli studenti idonei
 def suitableStudentList():
     
     myTrueQuery= "studente(ID,si,DESTINAZIONE)"
-    outputResult(myTrueQuery, True)
+    f.outputResult(myTrueQuery, True)
     
 #mostra la lista degli studenti non idonei
 def notSuitableStudentList():
     
     myTrueQuery= "studente(ID,no,DESTINAZIONE)"
-    outputResult(myTrueQuery, True)
+    f.outputResult(myTrueQuery, True)
     
 #dato l'ID, cerca uno studente
 def findStudent():
     
     studentID = input("Inserisci la matricola dello studente che vuoi cercare:\n")
     myTrueQuery= "studente("+str(studentID)+",IDONEO,DESTINAZIONE)"
-    outputResult(myTrueQuery, True)
+    f.outputResult(myTrueQuery, True)
     
 #inserisce uno studente
 def addStudent():
     
     studentID = ""
-    
+
     #controllo numero caratteri della matricola inserita
-    while(not len(str(studentID)) == 5):
+    while(studentID == "" ):
        
         studentID = input("Inserisci matricola nuovo studente:\n")
         queryCheck = "studente("+str(studentID)+",IDONEO,DESTINAZIONE)"
         
-        if(not len(str(studentID)) == 5):
-            print("Valore inserito non valido. Max 5 caratteri!\n")
-    
+        if((not len(str(studentID)) == 5 ) or (not studentID.isdigit())):
+            print("Valore inserito non valido. Max 5 caratteri e solo valori numerici!")
+            studentID = ""    
+  
     #controllo presenza id nel database
-    if(not outputResult(queryCheck, False)):
+    if(not f.outputResult(queryCheck, False)):
 
         studentSuitability = ""
         
@@ -70,7 +70,7 @@ def addStudent():
                 
                 studentDestination = input("Inserisci l'ID della destinazione: ")
                 checkDestination = "destinazione("+str(studentDestination)+",FACOLTA,DISPONIBILITA)"
-                destinationFound = outputResult(checkDestination, False)
+                destinationFound = f.outputResult(checkDestination, False)
                 
                 if (not destinationFound):
                     print("Valore inserito non valido, inserire una destinazione presente nel database.\n") 
@@ -99,7 +99,7 @@ def modifyStudent():
     queryCheck = "studente("+str(studentID)+",IDONEO,DESTINAZIONE)"
     
     #controllo presenza id nel database
-    if(outputResult(queryCheck, False)):
+    if(f.outputResult(queryCheck, False)):
         
         lista=list(prolog.query(queryCheck))
         oldDestination = d.extractDestination(lista, 2)
@@ -125,7 +125,7 @@ def modifyStudent():
                 
                 studentDestination = input("Inserisci l'ID della destinazione: ")
                 checkDestination = "destinazione("+str(studentDestination)+",FACOLTA,DISPONIBILITA)"
-                destinationFound = outputResult(checkDestination, False)
+                destinationFound = f.outputResult(checkDestination, False)
                 
                 if (not destinationFound):
                     
@@ -159,24 +159,6 @@ def removeStudentForDestination(destinationID):
     for elem in student:
         
         #controllo presenza facolta' nel database
-        if(outputResult(queryCheck, False)):
+        if(f.outputResult(queryCheck, False)):
             prolog.retractall(queryCheck)
-
-#restituisce risultati query    
-def outputResult(myTrueQuery, printable):
-    
-    myList = list(prolog.query(myTrueQuery))
-    
-    if not myList:
-        if printable:
-            print("Nessun risultato trovato.\n") 
-        return False
-    
-    else:
-        if printable:
-            print(tabulate(myList, headers='keys', tablefmt="pretty", numalign="center"))
-        return True
-    
- 
-        
-        
+  

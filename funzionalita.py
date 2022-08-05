@@ -3,8 +3,11 @@ import destinazione as d
 import dipartimento as dp
 import classificatore as c
 import probabilita as p
-import pandas as pd
 from tabulate import tabulate
+from pyswip import Prolog
+
+prolog = Prolog()
+prolog.consult("KB.pl") 
 
 #funzioni dei vari comandi disponibili
 def studenti():
@@ -123,3 +126,28 @@ def mainMenu():
     
     print("\nDigita il numero del comando a cui sei interessato.              \n")
     
+    #funzioni più usate
+def convertSpace(toControl):
+    for letter in toControl:
+            if(letter != " "):
+                if(not letter.isdigit()): 
+                    toControl = toControl.replace(letter,letter.lower())
+            else:
+                toControl = toControl.replace(letter,"_")
+                
+    return toControl
+
+#restituisce risultati query    
+def outputResult(myTrueQuery, printable):
+    
+    myList = list(prolog.query(myTrueQuery))
+    
+    if not myList:
+        if printable:
+            print("Nessun risultato trovato.\n") 
+        return False
+    
+    else:
+        if printable:
+            print(tabulate(myList, headers='keys', tablefmt="pretty", numalign="center"))
+        return True
