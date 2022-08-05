@@ -38,10 +38,14 @@ def classifier():
                 ["29,1-30","12"]]
         print(tabulate(table, tablefmt="pretty", numalign="center"))
         
-        mean = int(input("Inserisci la tua media ponderata dei voti, seguendo la tabella sopra riportata: \n"))
-       
+        intInserted = False
+        while(not intInserted):
+            mean = input("Inserisci la tua media ponderata dei voti, seguendo la tabella sopra riportata: \n")
+        
+            intInserted = controlInput(mean)
+        mean=int(mean)
         if(mean < 1 or mean > 11):
-            print("Media inserita non valida. Inserire un valore compreso tra 1 e 5")
+            print("Media inserita non valida. Inserire un valore compreso tra 1 e 12")
             
     while (isee < 1 or isee > 3):
         
@@ -50,7 +54,15 @@ def classifier():
                 ["26.000 < ISEE <= 40.000","2"],
                 ["ISEE > 40.000","3"]]
         print(tabulate(table, tablefmt="pretty", numalign="center"))
-        isee = int(input("Inserisci il tuo ISEE, seguendo questa tabella: "))
+        
+        
+        intInserted = False
+        while(not intInserted):
+            
+            isee = input("Inserisci il tuo ISEE, seguendo questa tabella: ")
+        
+            intInserted = controlInput(isee)
+        isee=int(isee)
         
         if(isee < 1 or isee > 3):
             print("ISEE inserito non valido. Inserire un valore >= di 13.000")
@@ -72,5 +84,18 @@ def classifier():
 
 def accuratezza():
     print("L'accuratezza del sistema e': %0.3f" % mean(result))
+    
+def controlInput(user_input):
+
+    try:
+        int(user_input)
+        it_is = True
+        
+    except ValueError:
+        it_is = False
+        print("Inserire solo valori numerici.\n")
+        
+    return it_is
+
 
 

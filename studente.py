@@ -26,7 +26,17 @@ def notSuitableStudentList():
 #dato l'ID, cerca uno studente
 def findStudent():
     
-    studentID = input("Inserisci la matricola dello studente che vuoi cercare:\n")
+    studentID = ""
+
+    #controllo numero caratteri della matricola inserita
+    while(studentID == "" ):
+       
+        studentID = input("Inserisci la matricola dello studente che vuoi cercare:\n")
+        
+        if((not len(str(studentID)) == 5 ) or (not studentID.isdigit())):
+            print("Valore inserito non valido. Max 5 caratteri e solo valori numerici!")
+            studentID = ""    
+            
     myTrueQuery= "studente("+str(studentID)+",IDONEO,DESTINAZIONE)"
     f.outputResult(myTrueQuery, True)
     

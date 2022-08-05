@@ -13,7 +13,7 @@ livelloInglese = BbnNode(Variable(0, 'linguaInglese', ['b2', 'b1', 'a2']), [0.70
 #conoscenza altre lingue
 altreLingue = BbnNode(Variable(1, 'altreLingue', ['si', 'no']), [0.85, 0.15])
 
-#nodo di presentazione principale (1-2)
+#nodo di conoscenza delle lingue dell'utente(0-1)
 conoscenzaLingue = BbnNode(Variable(2, 'conoscenza lingue', ['ottima', 'scarsa']),
                           [0.98, 0.02, 0.75, 0.25, 0.6, 0.4, 0.51, 0.49, 0.15, 0.85, 0.05, 0.95])
 
@@ -23,11 +23,11 @@ altriErasmus= BbnNode(Variable(3, 'altriErasmus', ['no', 'si']), [0.85, 0.15])
 #trasferimento all'estero
 trasferimento = BbnNode(Variable(4, 'futuro', ['estero', 'italia']), [0.71, 0.29])
 
-#nodo di presentazione competenze informatiche (3-4)
+#nodo di adattamento dell'utente (3-4)
 adattamento = BbnNode(Variable(5, 'adattamento', ['ottimo', 'scarso']), [0.99, 0.01, 0.72, 0.28,
                                                                          0.32, 0.68, 0.02, 0.98])
 
-#nodo per un primo profilo dell'utente (2-5)
+#nodo di abilita' dello studente (2-5)
 abilitaEstere = BbnNode(Variable(6, 'abilita', ['ottimo', 'scarso']), [0.93, 0.07, 0.83, 0.17,
                                                                         0.52, 0.48, 0.12, 0.88])
 
@@ -37,11 +37,11 @@ permanenza = BbnNode(Variable(7, 'tempoMobilita', ['6 mesi', '1 anno']), [0.95, 
 #preferisci college o residenza privata
 anniStudio = BbnNode(Variable(8, 'anniStudio', ['in corso', 'fuori corso']), [0.85, 0.15])
 
-#nodo per il vincolo lavorativo (7-8-9)
+#nodo per il merito dello studente in base alla media(7-8)
 merito = BbnNode(Variable(10, 'merito', ['ottimo', 'scarso']), [0.92, 0.08, 0.77, 0.23,
                                                                 0.39, 0.61, 0.16, 0.84])
 
-#previsione finale della % di essere assunti (6-10)
+#previsione finale della % di poter partecipare al progetto (6-10)
 previsionePartecipazione = BbnNode(Variable(11, 'previsione partecipazione', ['si', 'no']), [0.95, 0.05, 0.68, 0.32, 
                                                                                              0.51, 0.49, 0.06, 0.94])
 
@@ -77,8 +77,8 @@ def insertDefinedValue(tree, nodeName, optionName, value):
         .build()
     tree.set_observation(ev)
 
-#predizione: domande da fare all'utente
-def prediction():
+#domande da porre all'utente
+def questionsForPrediction():
     tree = treeCopy.__copy__()
 
     while True:
@@ -89,7 +89,7 @@ def prediction():
             insertDefinedValue(tree, "linguaInglese", value, 1.0)
             break
         elif value in ["non so"]:
-            info(0)
+            infoMessage(0)
 
     while True:
         value = input(
@@ -99,7 +99,7 @@ def prediction():
             insertDefinedValue(tree, "altreLingue", value, 1.0)
             break
         elif value in ["non so"]:
-            info(1)
+            infoMessage(1)
 
     while True:
         value = input("Hai partecipato ad altri Erasmus universitari?:\n"
@@ -108,7 +108,7 @@ def prediction():
             insertDefinedValue(tree, "altriErasmus", value, 1.0)
             break
         elif value in ["non so"]:
-            info(2)
+            infoMessage(2)
 
     while True:
         value = input("Dove ti vedi in futuro?:\n"
@@ -117,7 +117,7 @@ def prediction():
             insertDefinedValue(tree, "futuro", value, 1.0)
             break
         elif value in ["non so"]:
-            info(3)
+            infoMessage(3)
             
     while True:
         value = input("Quanto tempo vorresti essere in mobilita'?\n"
@@ -126,7 +126,7 @@ def prediction():
             insertDefinedValue(tree, "tempoMobilita", value, 1.0)
             break
         elif value in ["non so"]:
-            info(4)
+            infoMessage(4)
 
     while True:
         value = input("Sei in corso o fuori corso?\n"
@@ -135,14 +135,14 @@ def prediction():
             insertDefinedValue(tree, "anniStudio", value, 1.0)
             break
         elif value in ["non so"]:
-            info(5)
+            infoMessage(5)
             
     print("Lola sta analizzando le tue risposte...")
     outputPrediction(tree)
 
 
 
-#stampa la probabilita' di partecipare, in base alla probabilita', stampa un messaggio
+#stampa la probabilita' di partecipare in base alla probabilita' ottenuta
 def outputPrediction(tree):
     for node, posteriors in tree.get_posteriors().items():
         if node == 'previsione partecipazione':
@@ -160,7 +160,7 @@ def outputPrediction(tree):
                 print("Probabilita'  di partecipazione: alta.\n")
 
 
-def info(number):
+def infoMessage(number):
     if number == 0:
         print("Devi inserire il tuo livello di inglese, se non hai una certificazione scegli un livello approssimativo.\n")
     elif number == 1:

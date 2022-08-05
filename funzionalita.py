@@ -68,7 +68,7 @@ def rimuovi_dipartimento():
 
 def probabilita_idoneita():
     print("\n-------------------------------PROBABILITA' IDONEITA'-------------------------------\n\n")
-    p.prediction()
+    p.questionsForPrediction()
     lolaHelp()
 
 def finanziamento():
@@ -82,7 +82,7 @@ def precisione_classificatore():
     lolaHelp()
 
 def esci():
-    print("\nE' un dispiacere vederti andare via! Alla prossima! ")
+    print("\nLola ti saluta, alla prossima! ")
 
 def lolaHelp():
     print("\nBisogno di aiuto? Per visualizzare la lista dei comandi digita: -1 ")
