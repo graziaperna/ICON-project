@@ -1,5 +1,4 @@
-#["7","Mostra la lista delle destinazioni"],
-#["8","Aggiunge una nuova destinazione"],
+
 from pyswip import Prolog
 import studente as s
 import funzionalita as f
