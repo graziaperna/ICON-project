@@ -158,7 +158,7 @@ Ogni risposta è pesata differentemente e queste percentuali sono determinate da
 
 <br>
 
-Il gruppo ha sviluppato tale progetto a partire da Luglio 2022 fino a metà Agosto 2022 in remoto utilizzando la piattaforma gitHub e come ambiente di lavoro Eclipse.
+Il gruppo ha sviluppato tale progetto a partire da Luglio 2022 fino ad Agosto 2022 in remoto utilizzando la piattaforma gitHub e come ambiente di lavoro Eclipse.
 
 <br>
 
